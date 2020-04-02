@@ -6,7 +6,7 @@ let canvas = document.querySelector("#canvas"),
   pills = [],
   height = 600;
 
-let board = [
+const board = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1],
   [1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
@@ -254,7 +254,6 @@ function increaseScore() {
 }
 
 document.body.addEventListener("keydown", function(e) {
-  console.log("drawing");
 
   if (game.endElement.style.display == "none") {
     keys[e.keyCode] = true;
@@ -263,7 +262,6 @@ document.body.addEventListener("keydown", function(e) {
 });
 
 document.body.addEventListener("keyup", function(e) {
-  console.log("drawing");
   if (game.endElement.style.display == "none") {
     keys[e.keyCode] = false;
     draw();
