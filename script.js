@@ -44,7 +44,7 @@ let game = {
 };
 
 let hero = new Image();
-hero.src = "images/down.png";
+hero.src = "images/right.png";
 
 let wall = new Image();
 wall.src = "images/wall.png";
@@ -211,7 +211,6 @@ function draw() {
 
 function collect() {
   for (let i = 0; i < pills.length; i++) {
-    console.log(player.x + " " + pills[i].x);
     if (player.x == pills[i].x && player.y == pills[i].y) {
       pills.splice(i, 1);
       increaseScore();
