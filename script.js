@@ -50,22 +50,14 @@ let wall = new Image();
 wall.src = "images/wall.png";
 
 let pill1 = new Image();
-pill1.src = "images/pill1.png";
+pill1.src = "images/colls/face_mask.png";
 
 let pill2 = new Image();
-pill2.src = "images/pill2.png";
+pill2.src = "images/colls/toilet_paper.png";
 
 let pill3 = new Image();
-pill3.src = "images/pill3.png";
+pill3.src = "images/colls/lotion.png";
 
-let pill4 = new Image();
-pill4.src = "images/pill4.png";
-
-let fruit1 = new Image();
-fruit1.src = "images/fruit1.png";
-
-let fruit2 = new Image();
-fruit2.src = "images/fruit2.png";
 
 canvas.width = width;
 canvas.height = height;
@@ -87,24 +79,6 @@ function createPills() {
     x: 14,
     y: 12,
     imageObject: pill3
-  });
-
-  pills.push({
-    x: 15,
-    y: 18,
-    imageObject: pill4
-  });
-
-  pills.push({
-    x: 5,
-    y: 11,
-    imageObject: fruit1
-  });
-
-  pills.push({
-    x: 18,
-    y: 5,
-    imageObject: fruit2
   });
 }
 
@@ -195,13 +169,11 @@ function movement() {
 
   if ((keys[38] || keys[87]) && canMove(player.x, player.y - 1)) {
     // šipka nahoru
-    hero.src = "images/up.png";
     player.y--;
   }
 
   if ((keys[40] || keys[83]) && canMove(player.x, player.y + 1)) {
     // šipka dolů
-    hero.src = "images/down.png";
     player.y++;
   }
 }
