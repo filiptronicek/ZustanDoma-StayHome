@@ -220,7 +220,6 @@ function collect() {
 
 function increaseScore() {
   game.score++;
-
   game.scoreElement.textContent = `${game.score}/6`;
 }
 
