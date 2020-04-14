@@ -40,6 +40,7 @@ let game = {
   endElement: document.getElementById("end"),
   endMessage: document.getElementById("message"),
   score: 0,
+  orgTime: 30,
   time: 0,
 };
 
@@ -129,13 +130,13 @@ function startGame() {
 function endGame(type, timeTaken) {
   if (type === "win") {
     game.endElement.style.display = "block";
-    time = `${timeTaken[0]} minut a ${timeTaken[1]} sekund`;
-    game.endMessage.innerText = `Vyhráli jste! Sesbírali jste všech 6 vitamínů za ${time}`;
+    //time = `${timeTaken[0]} minut a ${timeTaken[1]} sekund`;
+    game.endMessage.innerText = `You won! You have collected all the items in just ${game.orgTime - timeTaken[1]} seconds!`;
   }
 
   if (type === "loss") {
     game.endElement.style.display = "block";
-    game.endMessage.innerText = `Prohráli jste! Nestihli jste sesbírat všechny vitamíny`;
+    game.endMessage.innerText = `You lost. Good luck next time!`;
   }
 }
 
@@ -149,7 +150,7 @@ function timer(time) {
       minutes = parseInt(timer / 60, 10);
       seconds = parseInt(timer % 60, 10);
 
-      if (game.score === 6) {
+      if (game.score === pillsArray.length) {
         clearInterval(CountDownInterval);
         endGame("win", [minutes, seconds]);
       }
@@ -225,7 +226,7 @@ function collect() {
 
 function increaseScore() {
   game.score++;
-  game.scoreElement.textContent = `${game.score}/6`;
+  game.scoreElement.textContent = `${game.score}/${pillsArray.length}`;
 }
 
 document.body.addEventListener("keydown", function (e) {
