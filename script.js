@@ -130,7 +130,6 @@ function startGame() {
 function endGame(type, timeTaken) {
   if (type === "win") {
     game.endElement.style.display = "block";
-    //time = `${timeTaken[0]} minut a ${timeTaken[1]} sekund`;
     game.endMessage.innerText = `You won! You have collected all the items in just ${game.orgTime - timeTaken[1]} seconds!`;
   }
 
