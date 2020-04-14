@@ -26,12 +26,12 @@ const board = [
   [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1],
   [1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
 let player = {
   x: 8,
-  y: 1
+  y: 1,
 };
 
 let game = {
@@ -40,7 +40,7 @@ let game = {
   endElement: document.getElementById("end"),
   endMessage: document.getElementById("message"),
   score: 0,
-  time: 0
+  time: 0,
 };
 
 let hero = new Image();
@@ -58,27 +58,54 @@ pill2.src = "images/colls/toilet_paper.png";
 let pill3 = new Image();
 pill3.src = "images/colls/lotion.png";
 
+const pillsArray = [
+  "images/colls/lotion.png",
+  "images/colls/toilet_paper.png",
+  "images/colls/face_mask.png",
+];
 
 canvas.width = width;
 canvas.height = height;
 
+function canMove(x, y) {
+  return (
+    y >= 0 &&
+    y < board.length &&
+    x >= 0 &&
+    x < board[y].length &&
+    board[y][x] != 1
+  );
+}
+
+function checkForExistingPoint(x, y) {}
+function generateNewPoint(img) {
+  function move() {
+    const randomX = Math.floor(Math.random() * 20);
+    const randomY = Math.floor(Math.random() * 20);
+    if (canMove(randomX, randomY)) {
+      ctx.drawImage(
+        img,
+        randomX * blockSize,
+        randomY * blockSize,
+        blockSize,
+        blockSize
+      );
+      pills.push({
+        x: randomX,
+        y: randomY,
+        imageObject: img
+      });
+    } else {
+      move();
+    }
+  }
+  move();
+}
 function createPills() {
-  pills.push({
-    x: 1,
-    y: 1,
-    imageObject: pill1
-  });
-
-  pills.push({
-    x: 1,
-    y: 15,
-    imageObject: pill2
-  });
-
-  pills.push({
-    x: 14,
-    y: 12,
-    imageObject: pill3
+  pillsArray.forEach((img) => {
+    let imgObj = new Image();
+    imgObj.src = img;
+    generateNewPoint(imgObj);
   });
 }
 
@@ -89,16 +116,6 @@ function generateBoard() {
         ctx.drawImage(wall, x * blockSize, y * blockSize, blockSize, blockSize);
       }
     }
-  }
-
-  for (let i = 0; i < pills.length; i++) {
-    ctx.drawImage(
-      pills[i].imageObject,
-      pills[i].x * blockSize,
-      pills[i].y * blockSize,
-      blockSize,
-      blockSize
-    );
   }
 }
 
@@ -128,7 +145,7 @@ function timer(time) {
     var timer = duration,
       minutes,
       seconds;
-    const CountDownInterval = setInterval(function() {
+    const CountDownInterval = setInterval(function () {
       minutes = parseInt(timer / 60, 10);
       seconds = parseInt(timer % 60, 10);
 
@@ -140,14 +157,12 @@ function timer(time) {
         clearInterval(CountDownInterval);
         endGame("loss", [minutes, seconds]);
       }
-      
+
       minutes = minutes < 10 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds;
 
       display.innerText = minutes + ":" + seconds;
       game.time = timer;
-
-
     }, 1000);
   }
   display = document.querySelector("#time");
@@ -176,16 +191,6 @@ function movement() {
     // šipka dolů
     player.y++;
   }
-}
-
-function canMove(x, y) {
-  return (
-    y >= 0 &&
-    y < board.length &&
-    x >= 0 &&
-    x < board[y].length &&
-    board[y][x] != 1
-  );
 }
 
 function draw() {
@@ -223,15 +228,14 @@ function increaseScore() {
   game.scoreElement.textContent = `${game.score}/6`;
 }
 
-document.body.addEventListener("keydown", function(e) {
-
+document.body.addEventListener("keydown", function (e) {
   if (game.endElement.style.display == "none") {
     keys[e.keyCode] = true;
     draw();
   }
 });
 
-document.body.addEventListener("keyup", function(e) {
+document.body.addEventListener("keyup", function (e) {
   if (game.endElement.style.display == "none") {
     keys[e.keyCode] = false;
     draw();
