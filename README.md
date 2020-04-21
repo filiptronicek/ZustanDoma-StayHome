@@ -1,1 +1,1 @@
-# ZůstaňDoma (StayHome) game
+# Corona game
