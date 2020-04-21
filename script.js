@@ -139,7 +139,7 @@ function generateNewPoint(img) {
 function createPills() {
   pillsArray.forEach((img) => {
     let imgObj = new Image();
-    imgObj.src = `/images/colls/${img}.png`;
+    imgObj.src = `./images/colls/${img}.png`;
     generateNewPoint(imgObj);
   });
 }
