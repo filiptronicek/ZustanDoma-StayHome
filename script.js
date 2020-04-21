@@ -1,3 +1,17 @@
+/*
+
+  Important functions
+
+*/
+Array.min = function (array) {
+  return Math.min.apply(Math, array);
+};
+
+/*
+
+  DOM and var init
+
+*/
 let canvas = document.querySelector("#canvas"),
   ctx = canvas.getContext("2d"),
   blockSize = 30,
@@ -74,6 +88,12 @@ const pillsArray = ["lotion", "toilet_paper", "face_mask", "pill2"];
 canvas.width = width;
 canvas.height = height;
 
+/* 
+
+  Code
+
+*/
+
 function canMove(x, y) {
   return (
     y >= 0 &&
@@ -104,11 +124,13 @@ function changeWindow(name) {
 function checkForOffset(x, y) {
   const minOffset = 5;
   let offsets = [];
-  pills.forEach(pill => {
+  pills.forEach((pill) => {
     const pointOffset = Math.abs(pill.x - x) + Math.abs(pill.y - y);
     offsets.push(pointOffset);
   });
-  if(min(offsets) < minOffset) return false;
+
+  if (Array.min(offsets) < minOffset) return false;
+  else return true;
 }
 
 function checkForExistingPoint(x, y) {
@@ -123,7 +145,11 @@ function generateNewPoint(img) {
   function move() {
     const randomX = Math.floor(Math.random() * 20);
     const randomY = Math.floor(Math.random() * 20);
-    if (canMove(randomX, randomY) && !checkForExistingPoint(randomX, randomY)) {
+    if (
+      canMove(randomX, randomY) &&
+      !checkForExistingPoint(randomX, randomY) &&
+      checkForOffset(randomX, randomY)
+    ) {
       ctx.drawImage(
         img,
         randomX * blockSize,
