@@ -52,19 +52,11 @@ hero.src = "images/right.png";
 let wall = new Image();
 wall.src = "images/wall.png";
 
-let pill1 = new Image();
-pill1.src = "images/colls/face_mask.png";
-
-let pill2 = new Image();
-pill2.src = "images/colls/toilet_paper.png";
-
-let pill3 = new Image();
-pill3.src = "images/colls/lotion.png";
-
 const pillsArray = [
-  "images/colls/lotion.png",
-  "images/colls/toilet_paper.png",
-  "images/colls/face_mask.png",
+  "lotion",
+  "toilet_paper",
+  "face_mask",
+  "pill2"
 ];
 
 canvas.width = width;
@@ -118,7 +110,7 @@ function generateNewPoint(img) {
 function createPills() {
   pillsArray.forEach((img) => {
     let imgObj = new Image();
-    imgObj.src = img;
+    imgObj.src = `images/colls/${img}.png`;
     generateNewPoint(imgObj);
   });
 }
