@@ -69,12 +69,7 @@ pill3.src = "images/colls/lotion.png";
 let pill4 = new Image();
 pill4.src = "images/colls/pill2.png";
 
-const pillsArray = [
-  "lotion",
-  "toilet_paper",
-  "face_mask",
-  "pill2"
-];
+const pillsArray = ["lotion", "toilet_paper", "face_mask", "pill2"];
 
 canvas.width = width;
 canvas.height = height;
@@ -106,13 +101,24 @@ function changeWindow(name) {
   }
 }
 
-function checkForExistingPoint(x, y) { 
-  pills.forEach(pillObj => {
-    if(pillObj.x === x && pillObj.y === y) {
+function checkForOffset(x, y) {
+  const minOffset = 5;
+  let offsets = [];
+  pills.forEach(pill => {
+    const pointOffset = Math.abs(pill.x - x) + Math.abs(pill.y - y);
+    offsets.push(pointOffset);
+  });
+  if(min(offsets) < minOffset) return false;
+}
+
+function checkForExistingPoint(x, y) {
+  pills.forEach((pillObj) => {
+    if (pillObj.x === x && pillObj.y === y) {
       return false;
     } else return true;
   });
 }
+
 function generateNewPoint(img) {
   function move() {
     const randomX = Math.floor(Math.random() * 20);
@@ -128,7 +134,7 @@ function generateNewPoint(img) {
       pills.push({
         x: randomX,
         y: randomY,
-        imageObject: img
+        imageObject: img,
       });
     } else {
       move();
@@ -174,7 +180,6 @@ function introduction() {
 function startGame() {
   game.scoreElement.textContent = `${game.score}/${pillsArray.length}`;
   game.time = game.orgTime;
-  console.log("creating pills")
   createPills();
   changeWindow("game");
   timer(game.time); //Initialization of the in-game timer for 30 seconds
@@ -184,7 +189,9 @@ function startGame() {
 function endGame(type, timeTaken) {
   if (type === "win") {
     game.endElement.style.display = "block";
-    game.endMessage.innerText = `You won! You have collected all the items in just ${game.orgTime - timeTaken[1]} seconds!`;
+    game.endMessage.innerText = `You won! You have collected all the items in just ${
+      game.orgTime - timeTaken[1]
+    } seconds!`;
   }
 
   if (type === "loss") {
