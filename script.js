@@ -162,11 +162,11 @@ function generateBoard() {
 
 function introduction() {
   changeWindow("introduction");
-
   game.startButton.addEventListener("click", startGame);
 }
 
 function startGame() {
+  game.scoreElement.textContent = `${game.score}/${pillsArray.length}`;
   game.time = game.orgTime;
   console.log("creating pills")
   createPills();
