@@ -46,11 +46,28 @@ let game = {
   time: 0,
 };
 
+/*
+
+  Preload the images
+
+*/
 let hero = new Image();
 hero.src = "images/right.png";
 
 let wall = new Image();
 wall.src = "images/wall.png";
+
+let pill1 = new Image();
+pill1.src = "images/colls/face_mask.png";
+
+let pill2 = new Image();
+pill2.src = "images/colls/toilet_paper.png";
+
+let pill3 = new Image();
+pill3.src = "images/colls/lotion.png";
+
+let pill4 = new Image();
+pill4.src = "images/colls/pill2.png";
 
 const pillsArray = [
   "lotion",
@@ -122,7 +139,7 @@ function generateNewPoint(img) {
 function createPills() {
   pillsArray.forEach((img) => {
     let imgObj = new Image();
-    imgObj.src = `images/colls/${img}.png`;
+    imgObj.src = `/images/colls/${img}.png`;
     generateNewPoint(imgObj);
   });
 }
@@ -151,6 +168,7 @@ function introduction() {
 
 function startGame() {
   game.time = game.orgTime;
+  console.log("creating pills")
   createPills();
   changeWindow("game");
   timer(game.time); //Initialization of the in-game timer for 30 seconds
