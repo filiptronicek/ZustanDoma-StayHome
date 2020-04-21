@@ -5,7 +5,7 @@
 */
 Array.min = function (array) {
   return Math.min.apply(Math, array);
-};
+}; // Thanks to this thread: https://stackoverflow.com/questions/8934877/obtain-smallest-value-from-array-in-javascript
 
 /*
 
