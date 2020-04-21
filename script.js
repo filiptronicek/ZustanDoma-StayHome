@@ -106,12 +106,18 @@ function changeWindow(name) {
   }
 }
 
-function checkForExistingPoint(x, y) { }
+function checkForExistingPoint(x, y) { 
+  pills.forEach(pillObj => {
+    if(pillObj.x === x && pillObj.y === y) {
+      return false;
+    } else return true;
+  });
+}
 function generateNewPoint(img) {
   function move() {
     const randomX = Math.floor(Math.random() * 20);
     const randomY = Math.floor(Math.random() * 20);
-    if (canMove(randomX, randomY)) {
+    if (canMove(randomX, randomY) && !checkForExistingPoint(randomX, randomY)) {
       ctx.drawImage(
         img,
         randomX * blockSize,
