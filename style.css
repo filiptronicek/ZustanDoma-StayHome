@@ -31,6 +31,24 @@ header img {
     font-size: 20px;
 }
 
+#introduction {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    height: 600px;
+    background-color: black;
+    background-size: 100% 100%;
+}
+
+.content {
+    width: 60%;
+    text-align: center;
+    line-height: 1.5;
+}
+
 button {
     margin-top: 30px;
     padding: 20px 30px;

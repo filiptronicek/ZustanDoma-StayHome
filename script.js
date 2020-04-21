@@ -36,9 +36,11 @@ let player = {
 
 let game = {
   timeElement: document.getElementById("time"),
+  introduction: document.querySelector("#introduction"),
   scoreElement: document.getElementById("score"),
   endElement: document.getElementById("end"),
   endMessage: document.getElementById("message"),
+  startButton: document.querySelector("#start"),
   score: 0,
   orgTime: 30,
   time: 0,
@@ -78,7 +80,18 @@ function canMove(x, y) {
   );
 }
 
-function checkForExistingPoint(x, y) {}
+function changeWindow(name) {
+  game.introduction.style = "none"; // úvod
+  canvas.style.visibility = "hidden"; // hra
+
+  if (name === "introduction") {
+    game.introduction.style.display = "flex";
+  } else if (name === "game") {
+    canvas.style.visibility = "visible";
+  }
+}
+
+function checkForExistingPoint(x, y) { }
 function generateNewPoint(img) {
   function move() {
     const randomX = Math.floor(Math.random() * 20);
@@ -120,11 +133,18 @@ function generateBoard() {
   }
 }
 
+function introduction() {
+  changeWindow("introduction");
+
+  game.startButton.addEventListener("click", startGame);
+}
+
 function startGame() {
   game.time = 30;
   createPills();
-  draw();
+  changeWindow("game");
   timer(game.time);
+  draw();
 }
 
 function endGame(type, timeTaken) {
@@ -242,4 +262,4 @@ document.body.addEventListener("keyup", function (e) {
   }
 });
 
-window.addEventListener("load", startGame);
+window.addEventListener("load", introduction);
