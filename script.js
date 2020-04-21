@@ -258,6 +258,12 @@ function increaseScore() {
   game.scoreElement.textContent = `${game.score}/${pillsArray.length}`;
 }
 
+/*
+
+  Handle key pressing
+
+*/
+
 document.body.addEventListener("keydown", function (e) {
   if (game.endElement.style.display == "none") {
     keys[e.keyCode] = true;
