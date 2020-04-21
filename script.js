@@ -72,6 +72,12 @@ function canMove(x, y) {
   );
 }
 
+/*
+
+  Changes the window that is currently displayed
+
+*/
+
 function changeWindow(name) {
   game.introduction.style = "none"; // úvod
   canvas.style.visibility = "hidden"; // hra
@@ -107,6 +113,12 @@ function generateNewPoint(img) {
   }
   move();
 }
+/*
+
+  Iterates over the pillsArray array and call the generateNewPoint function
+
+*/
+
 function createPills() {
   pillsArray.forEach((img) => {
     let imgObj = new Image();
@@ -114,6 +126,12 @@ function createPills() {
     generateNewPoint(imgObj);
   });
 }
+
+/*
+
+  Function generates the playing board
+
+*/
 
 function generateBoard() {
   for (let y = 0; y < board.length; y++) {
@@ -132,10 +150,10 @@ function introduction() {
 }
 
 function startGame() {
-  game.time = 30;
+  game.time = game.orgTime;
   createPills();
   changeWindow("game");
-  timer(game.time);
+  timer(game.time); //Initialization of the in-game timer for 30 seconds
   draw();
 }
 
