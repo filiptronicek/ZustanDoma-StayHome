@@ -43,11 +43,6 @@ const board = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
-let player = {
-  x: 8,
-  y: 1,
-};
-
 let game = {
   timeElement: document.getElementById("time"),
   introduction: document.querySelector("#introduction"),
@@ -120,9 +115,13 @@ function changeWindow(name) {
     canvas.style.visibility = "visible";
   }
 }
+let player = {
+  x: 8,
+  y: 1,
+};
 
 function checkForOffset(x, y) {
-  const minOffset = 5;
+  const minOffset = 9;
   let offsets = [];
   pills.forEach((pill) => {
     const pointOffset = Math.abs(pill.x - x) + Math.abs(pill.y - y);
@@ -140,6 +139,33 @@ function checkForExistingPoint(x, y) {
     } else return true;
   });
 }
+
+function spawnPlayer() {
+  const randomX = Math.floor(Math.random() * 20);
+  const randomY = Math.floor(Math.random() * 20);
+  if (
+    canMove(randomX, randomY) &&
+    !checkForExistingPoint(randomX, randomY) &&
+    checkForOffset(randomX, randomY)
+  ) {
+    ctx.drawImage(
+      hero,
+      randomX * blockSize,
+      randomY * blockSize,
+      blockSize,
+      blockSize
+    );
+    return [randomX, randomY];
+  } else {
+    spawnPlayer();
+  }
+}
+let playerCords = spawnPlayer();
+if(playerCords) {
+  player.x = playerCords[0];
+  player.y = playerCords[1];
+}
+
 
 function generateNewPoint(img) {
   function move() {
@@ -250,6 +276,7 @@ function timer(time) {
 
       display.innerText = minutes + ":" + seconds;
       game.time = timer;
+      draw(); // Check for any collects or time passing
     }, 1000);
   }
   display = document.querySelector("#time");
